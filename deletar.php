@@ -9,5 +9,5 @@ if(!isset($_SESSION['logado'])):
 	header('Location: listaf.php');
 endif;
 
-
+$connect->close();
 ?>

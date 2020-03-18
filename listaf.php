@@ -5,7 +5,7 @@
 
 	$sql = "SELECT * FROM filme, diretor where filme.Filme_iddiretor=diretor.iddiretor";
 	$result = $connect->query($sql);
-
+	$connect->close();
 	?>
 
 	<!DOCTYPE html>

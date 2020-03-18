@@ -31,7 +31,7 @@
 	$sql2 = "SELECT * FROM diretor";
 	$result = $connect->query($sql2);
 
-
+$connect->close();
 	?>
 
 	<!DOCTYPE html>
@@ -47,6 +47,7 @@
 		<header>
 			<nav class="navbar navbar-light bg-light">
 				<a href="listaf.php" class="navbar-brand mb-0 h1">Filmes</a>
+				<a href="/newpost" class="btn btn-primary" role="button">Novo Post</a>
 			</nav>
 		</header>
 		<div class="container" style="width: 60%; padding-bottom: 80px">
