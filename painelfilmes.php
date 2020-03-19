@@ -111,7 +111,7 @@ $connect->close();
 							if ($result->num_rows > 0) {
 								while($row = $result->fetch_assoc()) {
 									$link="Atualizarfilme.php?id=".$row['idFilme'];
-									$link2="deletar.php?id=".$row['idFilme'];
+									$link2="deletar.php?tipo=1&id=".$row['idFilme'];
 									echo "<tr>
 									<td>".$row['idFilme']."</td>
 									<td>".$row['Filme_Nome']."</td>

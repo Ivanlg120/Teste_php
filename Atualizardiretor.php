@@ -6,15 +6,15 @@ if(isset($_SESSION['logado'])):
 	header('Location: listaf.php');
 endif;
 
-if(isset($_GET['btn_busca']) and $_GET['parametro']!=null){
-	
-	$sql = "SELECT * FROM diretor where idDiretor=".$_GET['parametro'];
-	$result = $connect->query($sql);
-	
-}else{
-	$sql = "SELECT * FROM diretor  ORDER BY diretor.idDiretor";
-	$result = $connect->query($sql);
+if(isset($_POST['btn_salvar'])){
+	$sql = "UPDATE diretor SET Diretor_Nome='".$_POST['nome']."' WHERE idDiretor=".$_GET['id'];
+	mysqli_query($connect, $sql);
+	header('Location: paineldiretores.php');
 }
+
+$sql = "SELECT * FROM diretor where diretor.idDiretor=".$_GET['id'];
+$result = $connect->query($sql);
+$row = $result->fetch_assoc();
 
 $connect->close();
 ?>
@@ -74,7 +74,7 @@ $connect->close();
 								Filmes 
 							</a>
 						</li>
-						<li class="nav-item"> 
+						<li class="nav-item">
 							<a class="nav-link active" href="paineldiretores.php">
 								Diretores
 							</a>
@@ -86,43 +86,22 @@ $connect->close();
 
 			<main  class="col-md-9 ml-sm-auto col-lg-10 px-4 " style=" padding-top: 58px;">
 				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2  border-bottom">
-					<h1 class="h2">Diretores</h1>	
-					<form class="form-inline" action="paineldiretores.php" method="GET">
-						<input class="form-control mr-sm-2"  placeholder="ID" name="parametro">
-						<button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="btn_busca">Busca</button>
-					</form>	
-					<a href="novodiretor.php" class="btn btn-primary">Novo Diretor</a>
+					<h1 class="h2">Atualizar Diretor <?php echo $row['Diretor_Nome']; ?></h1>
+					
 				</div>
-				<div class="table-responsive">
-					<table class="table table-striped table-sm">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Nome</th>
-								<th>Atualizar</th>
-								<th>Deletar</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php
-							if ($result->num_rows > 0) {
-								while($row = $result->fetch_assoc()) {
-									$link="Atualizardiretor.php?id=".$row['idDiretor'];
-									$link2="deletar.php?tipo=2&id=".$row['idDiretor'];
-									echo "<tr>
-									<td>".$row['idDiretor']."</td>
-									<td>".$row['Diretor_Nome']."</td>
-									<td><a href=\"$link\" class=\"btn btn-primary\">Atualizar</a></td>
-									<td><a href=\"$link2\" class=\"btn btn-danger\">Deletar</a></td>
-									</tr>";
-								}
-							}
-							?>
+				<div class="container" style=" padding-bottom: 80px ">
+					<form action="<?php echo "Atualizardiretor.php?id=".$row['idDiretor'] ?>" method="POST">
 
-						</tbody>
-					</table>
+						<div class="form-group">
+							<label for="exampleFormControlInput1">Nome</label>
+							<?php echo "<input type=\"text\" class=\"form-control\" name=\"nome\" value=\"".$row['Diretor_Nome']."\">";?>
+						</div>
+
+
+						<button type="submit" class="btn btn-primary" name="btn_salvar">Salvar</button>
+
+					</form>
 				</div>
-
 				
 			</main>
 		</div>
