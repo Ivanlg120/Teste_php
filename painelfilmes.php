@@ -56,7 +56,7 @@ $connect->close();
 </head>
 <body>
 	<nav class="navbar navbar-dark fixed-top bg-dark">
-		<a class="navbar-brand" href="#">Filmes</a>
+		<a class="navbar-brand" href="teste2.php">Filmes</a>
 	</nav>
 
 	<div class="container-fluid">
@@ -91,7 +91,7 @@ $connect->close();
 						<input class="form-control mr-sm-2"  placeholder="ID" name="parametro">
 						<button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="btn_busca">Busca</button>
 					</form>	
-					<a href="#" class="btn btn-primary">Novo Filme</a>
+					<a href="novofilme.php" class="btn btn-primary">Novo Filme</a>
 				</div>
 				<div class="table-responsive">
 					<table class="table table-striped table-sm">
@@ -108,10 +108,9 @@ $connect->close();
 						</thead>
 						<tbody>
 							<?php
-							echo $_GET['parametro'];
 							if ($result->num_rows > 0) {
 								while($row = $result->fetch_assoc()) {
-									$link="Atualizafilme.php?id=".$row['idFilme'];
+									$link="Atualizarfilme.php?id=".$row['idFilme'];
 									$link2="deletar.php?id=".$row['idFilme'];
 									echo "<tr>
 									<td>".$row['idFilme']."</td>
