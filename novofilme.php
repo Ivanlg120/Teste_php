@@ -2,15 +2,22 @@
 require_once 'db_connect.php';
 session_start();
 
-if(isset($_SESSION['logado'])):
+if(!isset($_SESSION['logado'])):
 	header('Location: listaf.php');
 endif;
 
 if(isset($_POST['btn_salvar'])){
-	$sql="INSERT INTO filme (Filme_Nome, Filme_iddiretor, Filme_ano, Filme_duracao, Filme_desc) values ('".$_POST['nome']."','".$_POST['diretor']."','".$_POST['ano']."','".$_POST['dura']."','".$_POST['desc']."')";
+	if (!filter_var($_POST['dura'], FILTER_VALIDATE_INT)) {
+		$erro = "<li> O campo duração deve conter apenas números! </li>";
+	}
+	elseif (!filter_var($_POST['ano'], FILTER_VALIDATE_INT)) {
+		$erro = "<li> O campo ano deve conter apenas números! </li>";
+	}else{
+		$sql="INSERT INTO filme (Filme_Nome, Filme_iddiretor, Filme_ano, Filme_duracao, Filme_desc) values ('".$_POST['nome']."','".$_POST['diretor']."','".$_POST['ano']."','".$_POST['dura']."','".$_POST['desc']."')";
 		//echo $row['idFilme'];
-	mysqli_query($connect, $sql);
-	header('Location: painelfilmes.php');
+		mysqli_query($connect, $sql);
+		header('Location: painelfilmes.php');
+	}
 }
 
 
@@ -58,6 +65,7 @@ $connect->close();
 <body>
 	<nav class="navbar navbar-dark fixed-top bg-dark">
 		<a class="navbar-brand" href="teste2.php">Filmes</a>
+		<a href="logout.php" class="btn btn-primary" role="button">Logout</a>
 	</nav>
 
 	<div class="container-fluid">
@@ -91,16 +99,25 @@ $connect->close();
 					
 				</div>
 				<div class="container" style=" padding-bottom: 80px ">
+					<?php
+					if (isset($erro)) {
+						echo "<div class=\"alert alert-danger\" role=\"alert\">
+						".$erro."
+						</div>	";
+					}
+
+
+					?>
 					<form action="novofilme.php" method="POST">
 						<div class="form-row">
 							<div class="form-group col-md-6">
-								<label for="exampleFormControlInput1">Nome</label>
-								<input type="text" class="form-control" name="nome">
+								<label for="nome">Nome</label>
+								<input type="text" class="form-control" id="nome" name="nome" required>
 							</div>
 
 							<div class="form-group col-md-6">
 								<label for="exampleFormControlSelect1">Diretor</label>
-								<select class="form-control" name="diretor">
+								<select class="form-control" name="diretor" required>
 									<?php
 									if ($result->num_rows > 0) {
 										while($row2 = $result->fetch_assoc()) {
@@ -116,18 +133,18 @@ $connect->close();
 						</div>
 						<div class="form-row ">
 							<div class="form-group col-md-6">
-								<label for="exampleFormControlInput1">Ano</label>
-								<input type="text" class="form-control" name="ano">
+								<label for="ano">Ano</label>
+								<input type="number" class="form-control" id="ano" name="ano" required>
 							</div>
 							<div class="form-group col-md-6">
-								<label for="exampleFormControlInput1">Duração</label>
-								<input type="text" class="form-control" name="dura" >
+								<label for="dura">Duração (minutos)</label>
+								<input type="number" class="form-control" id="dura" name="dura" required>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="exampleFormControlTextarea1">Descrição</label>
+							<label for="desc">Descrição</label>
 
-							<textarea class="form-control" name="desc" rows="6"></textarea>
+							<textarea class="form-control" id="desc" name="desc" rows="6" required></textarea>
 						</div>
 						<button type="submit" class="btn btn-primary" name="btn_salvar">Salvar</button>
 

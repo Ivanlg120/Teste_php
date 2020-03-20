@@ -2,7 +2,7 @@
 require_once 'db_connect.php';
 session_start();
 
-if(isset($_SESSION['logado'])):
+if(!isset($_SESSION['logado'])):
 	header('Location: listaf.php');
 endif;
 
@@ -55,6 +55,7 @@ $connect->close();
 <body>
 	<nav class="navbar navbar-dark fixed-top bg-dark">
 		<a class="navbar-brand" href="teste2.php">Filmes</a>
+		<a href="logout.php" class="btn btn-primary" role="button">Logout</a>
 	</nav>
 
 	<div class="container-fluid">
@@ -91,8 +92,8 @@ $connect->close();
 					<form action="novodiretor.php" method="POST">
 
 						<div class="form-group">
-							<label for="exampleFormControlInput1">Nome</label>
-							<input type="text" class="form-control" name="nome" >
+							<label for="nome">Nome</label>
+							<input type="text" class="form-control" id="nome" name="nome" required>
 						</div>
 
 

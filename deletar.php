@@ -2,7 +2,7 @@
 require_once 'db_connect.php';
 session_start();
 
-if(!isset($_SESSION['logado'])):
+if(isset($_SESSION['logado'])):
 		//echo "teste";
 	if ($_GET['tipo']==1) {
 		$sql = "DELETE FROM filme WHERE idFilme=".$_GET['id'];

@@ -19,24 +19,15 @@
 	</head>
 	<body>
 		<header>
-			<nav class="navbar navbar-light bg-light">
-				<a href="listaf.php" class="navbar-brand mb-0 h1">Filmes</a>
-				<a href="login.php" class="btn btn-primary" role="button">Painel Administrativo</a>
-
-				<a href="login.php" class="btn btn-primary" role="button">Painel Administrativo</a>
-				
+			<nav class="navbar navbar-light bg-dark">
+				<a href="listaf.php" class="navbar-brand  text-light">Filmes</a>
 				<a href="login.php" class="btn btn-primary" role="button">Painel Administrativo</a>
 
 			</nav>
 		</header>
 		<section>
 			<div class="container" style="width: 60%; padding-bottom: 30px;">
-				<nav aria-label="breadcrumb">
-					<ol class="breadcrumb"
-					style="background-color: white; padding-left: 0px;">
-					<li class="breadcrumb-item active" aria-current="page">Filmes</li>
-				</ol>
-			</nav>
+				
 			<?php
 			if ($result->num_rows > 0) {
 	    // output data of each row
@@ -56,18 +47,7 @@
 							</h6>
 							<p class="card-text"><?php echo $row['Filme_desc']?></p>
 
-							<?php 
-							if(!isset($_SESSION['logado'])):
-								$link="Atualizafilme.php?id=".$row['idFilme'];
-								$link2="deletar.php?id=".$row['idFilme'];
-
-								echo "<a href=\"$link\" class=\"btn btn-primary\">Atualizar</a>";
-
-								echo "<a href=\"$link2\" class=\"btn btn-danger\">Deletar</a>";
-
-
-							endif;
-							?>
+							
 						</div>
 						</div> <?php
 					}

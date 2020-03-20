@@ -2,7 +2,7 @@
 require_once 'db_connect.php';
 session_start();
 
-if(isset($_SESSION['logado'])):
+if(!isset($_SESSION['logado'])):
 	header('Location: listaf.php');
 endif;
 
@@ -11,19 +11,19 @@ $dura=0;
 $sql = "SELECT * FROM filme";
 $result = $connect->query($sql);
 if ($result->num_rows > 0) {
-				while($row = $result->fetch_assoc()) {
-					$cont+=1;
-					$dura+=$row['Filme_duracao'];
-				}
-			}
+	while($row = $result->fetch_assoc()) {
+		$cont+=1;
+		$dura+=$row['Filme_duracao'];
+	}
+}
 $cont2=0;
 $sql = "SELECT * FROM diretor";
 $result = $connect->query($sql);
 if ($result->num_rows > 0) {
-				while($row = $result->fetch_assoc()) {
-					$cont2+=1;
-				}
-			}
+	while($row = $result->fetch_assoc()) {
+		$cont2+=1;
+	}
+}
 $connect->close();
 $dura=$dura/$cont;
 ?>
@@ -66,6 +66,8 @@ $dura=$dura/$cont;
 <body>
 	<nav class="navbar navbar-dark fixed-top bg-dark">
 		<a class="navbar-brand" href="teste2.php">Filmes</a>
+
+		<a href="logout.php" class="btn btn-primary" role="button">Logout</a>
 	</nav>
 
 	<div class="container-fluid">
