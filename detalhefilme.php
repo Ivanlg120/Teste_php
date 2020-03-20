@@ -6,15 +6,10 @@ if(!isset($_SESSION['logado'])):
 	header('Location: listaf.php');
 endif;
 
-if(isset($_GET['btn_busca']) and $_GET['parametro']!=null){
-	
-	$sql = "SELECT * FROM filme, diretor where filme.Filme_iddiretor=diretor.iddiretor and filme.idFilme=".$_GET['parametro'];
-	$result = $connect->query($sql);
-	
-}else{
-	$sql = "SELECT * FROM filme, diretor where filme.Filme_iddiretor=diretor.iddiretor ORDER BY filme.idFilme";
-	$result = $connect->query($sql);
-}
+$sql = "SELECT * FROM filme, diretor where filme.Filme_iddiretor=diretor.iddiretor and filme.idFilme=".$_GET['id'];
+$result = $connect->query($sql);
+$row = $result->fetch_assoc();
+
 
 $connect->close();
 ?>
@@ -37,9 +32,6 @@ $connect->close();
 			left: 0;
 			padding: 58px 0 0; /* Height of navbar */
 		}
-
-		
-
 		.sidebar .nav-link.active {
 			color: #337bff;
 		}
@@ -85,49 +77,37 @@ $connect->close();
 
 			<main  class="col-md-9 ml-sm-auto col-lg-10 px-4 " style=" padding-top: 58px;">
 				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2  border-bottom">
-					<h1 class="h2">Filmes</h1>
-					<form class="form-inline" action="painelfilmes.php" method="GET">
-						<input class="form-control mr-sm-2"  placeholder="ID" name="parametro">
-						<button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="btn_busca">Busca</button>
-					</form>	
-					<a href="novofilme.php" class="btn btn-primary">Novo Filme</a>
+					<h1 class="h2">Detalhes Filme <?php echo $row['Filme_Nome']; ?></h1>
+					
 				</div>
-				<div class="table-responsive">
-					<table class="table table-striped table-sm">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Nome</th>
-								<th>Diretor</th>
-								<th>Ano</th>
-								<th>Duração</th>
-								<th>Atualizar</th>
-								<th>Deletar</th>
-							</tr>
-						</thead>
-						<tbody>
+				<div class="container" style=" padding-bottom: 80px ">
+					
+					<div class="card shadow-sm bg-white rounded" style="margin-top: 20px;" >
+						<div class="card-body">
+							<h4 class="card-title"><?php echo $row['Filme_Nome']?></h4>
+							<h6 class="card-subtitle mb-2 text-muted">
+								<i class="material-icons">person_outline</i> 
+								<?php echo "<a href=\"filmespordiretor.php?id=".$row['idDiretor']."\">".$row['Diretor_Nome']."</a>";?>
+								<br>
+								<i class="material-icons">date_range</i>
+								<?php echo $row['Filme_ano']?>
+								<br>
+								<i class="material-icons">timer</i>
+								<?php echo $row['Filme_duracao']." min"?>  
+							</h6>
+							<p class="card-text"><?php echo $row['Filme_desc']?></p>
 							<?php
-							if ($result->num_rows > 0) {
-								while($row = $result->fetch_assoc()) {
-									$link="Atualizarfilme.php?id=".$row['idFilme'];
+							$link="Atualizarfilme.php?id=".$row['idFilme'];
 									$link2="deletar.php?tipo=1&id=".$row['idFilme'];
-									echo "<tr>
-									<td>".$row['idFilme']."</td>
-									<td><a href=\"detalhefilme.php?id=".$row['idFilme']."\">".$row['Filme_Nome']."</a></td>
-									<td><a href=\"filmespordiretor.php?id=".$row['idDiretor']."\">".$row['Diretor_Nome']."</a></td>
-									<td>".$row['Filme_ano']."</td>
-									<td>".$row['Filme_duracao']." min</td>
-									<td><a href=\"$link\" class=\"btn btn-primary\">Atualizar</a></td>
-									<td><a href=\"$link2\" class=\"btn btn-danger\">Deletar</a></td>
-									</tr>";
-								}
-							}
-							?>
+									echo "<a href=\"$link\" class=\"btn btn-primary\">Atualizar</a>
+									<a href=\"$link2\" class=\"btn btn-danger\">Deletar</a>";
+									?>
 
-						</tbody>
-					</table>
+
+							
+						</div>
+					</div>
 				</div>
-
 				
 			</main>
 		</div>

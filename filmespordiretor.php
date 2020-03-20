@@ -6,15 +6,13 @@ if(!isset($_SESSION['logado'])):
 	header('Location: listaf.php');
 endif;
 
-if(isset($_GET['btn_busca']) and $_GET['parametro']!=null){
-	
-	$sql = "SELECT * FROM diretor where idDiretor=".$_GET['parametro'];
-	$result = $connect->query($sql);
-	
-}else{
-	$sql = "SELECT * FROM diretor  ORDER BY diretor.idDiretor";
-	$result = $connect->query($sql);
-}
+
+$sql = "SELECT * FROM diretor where diretor.idDiretor=".$_GET['id'];
+$result = $connect->query($sql);
+$row2= $result->fetch_assoc();
+
+$sql = "SELECT * FROM filme, diretor where filme.Filme_iddiretor=diretor.iddiretor and diretor.idDiretor=".$_GET['id'];
+$result = $connect->query($sql);
 
 $connect->close();
 ?>
@@ -37,11 +35,6 @@ $connect->close();
 			left: 0;
 			padding: 58px 0 0; /* Height of navbar */
 		}
-
-		.card {
-			height: 200px;
-		}
-
 		.sidebar .nav-link.active {
 			color: #337bff;
 		}
@@ -75,7 +68,7 @@ $connect->close();
 								Filmes 
 							</a>
 						</li>
-						<li class="nav-item"> 
+						<li class="nav-item">
 							<a class="nav-link active" href="paineldiretores.php">
 								Diretores
 							</a>
@@ -87,48 +80,51 @@ $connect->close();
 
 			<main  class="col-md-9 ml-sm-auto col-lg-10 px-4 " style=" padding-top: 58px;">
 				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2  border-bottom">
-					<h1 class="h2">Diretores</h1>	
-					<form class="form-inline" action="paineldiretores.php" method="GET">
-						<input class="form-control mr-sm-2"  placeholder="ID" name="parametro">
-						<button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="btn_busca">Busca</button>
-					</form>	
-					<a href="novodiretor.php" class="btn btn-primary">Novo Diretor</a>
+					<h1 class="h2">Filmes do Diretor  <?php echo $row2['Diretor_Nome']; ?></h1>
+					
 				</div>
-				<div class="table-responsive">
-					<table class="table table-striped table-sm">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Nome</th>
-								<th>Atualizar</th>
-								<th>Deletar</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php
-							if ($result->num_rows > 0) {
-								while($row = $result->fetch_assoc()) {
-									$link="Atualizardiretor.php?id=".$row['idDiretor'];
-									$link2="deletar.php?tipo=2&id=".$row['idDiretor'];
-									echo "<tr>
-									<td>".$row['idDiretor']."</td>
-									<td><a href=\"filmespordiretor.php?id=".$row['idDiretor']."\">".$row['Diretor_Nome']."</a></td>
-									<td><a href=\"$link\" class=\"btn btn-primary\">Atualizar</a></td>
-									<td><a href=\"$link2\" class=\"btn btn-danger\">Deletar</a></td>
-									</tr>";
-								}
-							}
-							?>
+				<div class="container" style=" padding-bottom: 80px ">
+					<?php
+					if ($result->num_rows > 0) {
+	    // output data of each row
+						while($row = $result->fetch_assoc()) {?>
+							<div class="card shadow-sm bg-white rounded" style="margin-top: 20px;" >
+								<div class="card-body">
+									<h4 class="card-title"><?php echo $row['Filme_Nome']?></h4>
+									<h6 class="card-subtitle mb-2 text-muted">
+										<i class="material-icons">person_outline</i> 
+										<?php echo "<a href=\"filmespordiretor.php?id=".$row['idDiretor']."\">".$row['Diretor_Nome']."</a>";?>
+										<br>
+										<i class="material-icons">date_range</i>
+										<?php echo $row['Filme_ano']?>
+										<br>
+										<i class="material-icons">timer</i>
+										<?php echo $row['Filme_duracao']." min"?>  
+									</h6>
+									<p class="card-text"><?php echo $row['Filme_desc']?></p>
+									<?php
+									$link="Atualizarfilme.php?id=".$row['idFilme'];
+									$link2="deletar.php?tipo=1&id=".$row['idFilme'];
+									echo "<a href=\"$link\" class=\"btn btn-primary\">Atualizar</a>
+									<a href=\"$link2\" class=\"btn btn-danger\">Deletar</a>";
+									?>
 
-						</tbody>
-					</table>
-				</div>
 
-				
-			</main>
+
+								</div>
+							</div>
+							<?php 
+						}}else{
+
+							echo "<div style=\"margin-top: 20px;\">Nenhum filme cadastrado!</div>";
+						}
+						?>
+					</div>
+
+				</main>
+			</div>
 		</div>
-	</div>
 
 
-</body>
-</html>
+	</body>
+	</html>
