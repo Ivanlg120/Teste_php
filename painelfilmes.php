@@ -3,7 +3,7 @@ require_once 'db_connect.php';
 session_start();
 
 if(!isset($_SESSION['logado'])):
-	header('Location: listaf.php');
+	header('Location: listafilmes.php');
 endif;
 
 if(isset($_GET['btn_busca']) and $_GET['parametro']!=null){
@@ -54,7 +54,7 @@ $connect->close();
 </head>
 <body>
 	<nav class="navbar navbar-dark fixed-top bg-dark">
-		<a class="navbar-brand" href="teste2.php">Filmes</a>
+		<a class="navbar-brand" href="paineladministrativo.php">Filmes</a>
 		<a href="logout.php" class="btn btn-primary" role="button">Logout</a>
 	</nav>
 
@@ -64,7 +64,7 @@ $connect->close();
 				<div class="sidebar-sticky">
 					<ul class="nav flex-column">
 						<li class="nav-item">
-							<a class="nav-link " href="teste2.php">
+							<a class="nav-link " href="paineladministrativo.php">
 								Painel Administrativo 
 							</a>
 						</li>

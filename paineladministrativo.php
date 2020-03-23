@@ -3,7 +3,7 @@ require_once 'db_connect.php';
 session_start();
 
 if(!isset($_SESSION['logado'])):
-	header('Location: listaf.php');
+	header('Location: listafilmes.php');
 endif;
 
 $cont=0;
@@ -65,7 +65,7 @@ $dura=$dura/$cont;
 </head>
 <body>
 	<nav class="navbar navbar-dark fixed-top bg-dark">
-		<a class="navbar-brand" href="teste2.php">Filmes</a>
+		<a class="navbar-brand" href="paineladministrativo.php">Filmes</a>
 
 		<a href="logout.php" class="btn btn-primary" role="button">Logout</a>
 	</nav>
@@ -76,7 +76,7 @@ $dura=$dura/$cont;
 				<div class="sidebar-sticky">
 					<ul class="nav flex-column">
 						<li class="nav-item">
-							<a class="nav-link active" href="teste2.php">
+							<a class="nav-link active" href="paineladministrativo.php">
 								Painel Administrativo <span class="sr-only">(current)</span>
 							</a>
 						</li>

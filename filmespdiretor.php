@@ -31,7 +31,7 @@ $connect->close();
 </head>
 <body>
 	<nav class="navbar navbar-light bg-dark fixed-top ">
-		<a href="listaf.php" class="navbar-brand  text-light">Filmes</a>
+		<a href="listafilmes.php" class="navbar-brand  text-light">Filmes</a>
 		<a href="login.php" class="btn btn-primary" role="button">Painel Administrativo</a>
 
 	</nav>

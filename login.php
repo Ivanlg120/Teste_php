@@ -14,7 +14,7 @@ if(isset($_POST['btn_logar'])){
 			$dados = $result->fetch_assoc();
 			$_SESSION['logado'] = true;
 			$_SESSION['id_usuario'] = $dados['id'];
-			header('Location: teste2.php');
+			header('Location: paineladministrativo.php');
 		}else{
 			$erro = "<li> Usuario e/ou senha incorretos! </li>";
 		}
@@ -32,7 +32,7 @@ $connect->close();
 </head>
 <body>
 	<nav class="navbar navbar-dark fixed-top bg-dark">
-		<a class="navbar-brand" href="teste2.php">Filmes</a>
+		<a class="navbar-brand" href="paineladministrativo.php">Filmes</a>
 	</nav> 
 	<div class="container" style="width: 50%; padding-bottom: 30px;padding-top: 68px;">
 		<?php

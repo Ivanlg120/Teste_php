@@ -15,10 +15,10 @@ if(isset($_SESSION['logado'])):
 		header('Location: paineldiretores.php');
 	}
 	else{
-	header('Location: teste2.php');
+	header('Location: paineladministrativo.php');
 }
 else:
-	header('Location: listaf.php');
+	header('Location: listafilmes.php');
 endif;
 
 

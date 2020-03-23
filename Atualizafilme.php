@@ -8,7 +8,7 @@
 
 	// Verificação
 	if(isset($_SESSION['logado'])):
-		header('Location: listaf.php');
+		header('Location: listafilmes.php');
 	endif;
 
 
@@ -20,7 +20,7 @@
 		$sql = "UPDATE filme SET Filme_Nome='".$_POST['nome']."' WHERE idFilme=".$_GET['id'];
 		//echo $row['idFilme'];
 		mysqli_query($connect, $sql);
-		header('Location: listaf.php');
+		header('Location: listafilmes.php');
 		
 
 	endif;
@@ -46,7 +46,7 @@ $connect->close();
 	<body>
 		<header>
 			<nav class="navbar navbar-light bg-light">
-				<a href="listaf.php" class="navbar-brand mb-0 h1">Filmes</a>
+				<a href="listafilmes.php" class="navbar-brand mb-0 h1">Filmes</a>
 				<a href="/newpost" class="btn btn-primary" role="button">Novo Post</a>
 			</nav>
 		</header>
@@ -55,7 +55,7 @@ $connect->close();
 				<ol class="breadcrumb"
 				style="background-color: white; padding-left: 0px;">
 				<li class="breadcrumb-item" aria-current="page"><a
-					href="listaf.php">Filmes</a></li>
+					href="listafilmes.php">Filmes</a></li>
 					<li class="breadcrumb-item active" aria-current="page">Atualizar Filme</li>
 				</ol>
 			</nav>
